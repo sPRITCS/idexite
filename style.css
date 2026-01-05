@@ -1,0 +1,239 @@
+/* Color Palette & Variables */
+:root {
+    --bg-main: #0c0c0e;
+    --bg-nav: #141416;
+    --btc-yellow: #f7931a;
+    --text-muted: #848484;
+    --text-darker: #4a4a4a;
+    --border-line: #1f1f21;
+    --accent-blue: #5d78ff;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg-main);
+    color: white;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --- Header Section --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background-color: var(--bg-main);
+    border-bottom: 1px solid var(--border-line);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-box {
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--accent-blue);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    color: var(--accent-blue);
+    font-style: italic;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+}
+
+.nav-links a.active {
+    color: white;
+    position: relative;
+}
+
+.nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -22px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent-blue);
+}
+
+/* --- Asset Selector --- */
+.asset-strip {
+    display: flex;
+    background-color: var(--bg-nav);
+    border-bottom: 1px solid var(--border-line);
+}
+
+.asset {
+    padding: 16px 32px;
+    text-align: center;
+    cursor: pointer;
+    min-width: 110px;
+    transition: background 0.2s;
+}
+
+.asset:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.asset.active {
+    border-bottom: 2px solid var(--btc-yellow);
+}
+
+.asset-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.active .asset-label {
+    color: var(--btc-yellow);
+}
+
+.asset-amount {
+    font-size: 10px;
+    color: var(--text-darker);
+    margin-top: 4px;
+}
+
+/* --- Main Dashboard Area --- */
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 80px;
+}
+
+.hex-icon {
+    width: 90px;
+    height: 100px;
+    background-color: var(--btc-yellow);
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 40px rgba(247, 147, 26, 0.2);
+}
+
+.hex-icon span {
+    font-size: 44px;
+    color: white;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.main-balance {
+    font-size: 80px;
+    font-weight: 200;
+}
+
+.main-balance span {
+    font-size: 32px;
+    color: var(--btc-yellow);
+    font-weight: 400;
+    margin-left: 10px;
+}
+
+.sub-balance {
+    font-size: 26px;
+    color: var(--text-muted);
+    font-weight: 200;
+    margin-top: -5px;
+}
+
+.actions {
+    display: flex;
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.btn {
+    width: 260px;
+    padding: 14px 0;
+    border-radius: 100px;
+    border: 1px solid #2a2a2c;
+    background: transparent;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn:hover {
+    border-color: var(--btc-yellow);
+    background: rgba(247, 147, 26, 0.08);
+    transform: translateY(-1px);
+}
+
+/* --- Price Footer --- */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 40px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    background: linear-gradient(transparent, var(--bg-main));
+}
+
+.price-box p {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+}
+
+.price-box h2 {
+    font-size: 40px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.price-change {
+    color: #26da71;
+    font-weight: 500;
+    margin-top: 6px;
+}
+
+.timeframes {
+    display: flex;
+    gap: 20px;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.timeframes span {
+    cursor: pointer;
+    padding-bottom: 4px;
+}
+
+.timeframes .active-tf {
+    color: white;
+    border-bottom: 2px solid white;
+}
