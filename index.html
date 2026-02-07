@@ -3,303 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Dashboard - 15 BTC</title>
+    <title>Example | Grey Edition</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
-        /* CSS VARIABLES & RESET */
+        /* --- BRUTALIST GREY TOKENS --- */
         :root {
-            --bg-main: #0c0c0e;
-            --bg-nav: #141416;
-            --btc-yellow: #f7931a;
-            --text-muted: #848484;
-            --text-darker: #4a4a4a;
-            --border-line: #1f1f21;
-            --accent-blue: #5d78ff;
+            --bg-main: #F2F2F2;      /* Light Silver */
+            --bg-accent: #E5E5E5;    /* Solid Grey */
+            --black: #111111;
+            --white: #FFFFFF;
+            --border-width: 2px;
+            --transition: 0.15s ease-in-out;
         }
 
+        /* --- RESET --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
         body {
-            margin: 0;
+            font-family: 'Space Grotesk', sans-serif;
             background-color: var(--bg-main);
-            color: white;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
+            color: var(--black);
+            line-height: 1.5;
         }
 
-        /* --- HEADER --- */
-        header {
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            padding: 24px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 24px;
-            background-color: var(--bg-main);
-            border-bottom: 1px solid var(--border-line);
+            border-bottom: var(--border-width) solid var(--black);
+            background: var(--bg-main);
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-box {
-            width: 28px;
-            height: 28px;
-            border: 2px solid var(--accent-blue);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            color: var(--accent-blue);
-            font-style: italic;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -1px;
         }
 
         .nav-links a {
+            margin-left: 30px;
             text-decoration: none;
-            color: var(--text-muted);
-            font-size: 13px;
-            font-weight: 600;
+            color: var(--black);
+            font-weight: 700;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
-        .nav-links a.active {
-            color: white;
-            position: relative;
-        }
-
-        .nav-links a.active::after {
-            content: '';
-            position: absolute;
-            bottom: -24px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: var(--accent-blue);
-        }
-
-        /* --- ASSET STRIP --- */
-        .asset-strip {
-            display: flex;
-            background-color: var(--bg-nav);
-            border-bottom: 1px solid var(--border-line);
-            padding-left: 20px;
-        }
-
-        .asset {
-            padding: 16px 30px;
+        /* --- HERO --- */
+        .hero {
+            background-color: var(--bg-accent);
+            padding: 140px 0;
+            border-bottom: var(--border-width) solid var(--black);
             text-align: center;
-            min-width: 100px;
-            border-bottom: 2px solid transparent;
         }
 
-        .asset.active {
-            border-bottom: 2px solid var(--btc-yellow);
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 6rem);
+            line-height: 0.85;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            letter-spacing: -4px;
         }
 
-        .asset-label {
-            font-size: 11px;
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 550px;
+            margin: 0 auto 40px;
+            font-weight: 500;
+            color: var(--black);
+        }
+
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-block;
+            padding: 18px 36px;
+            background: var(--black);
+            color: var(--white);
+            text-decoration: none;
             font-weight: 700;
             text-transform: uppercase;
-            color: var(--text-muted);
-        }
-
-        .active .asset-label {
-            color: var(--btc-yellow);
-        }
-
-        .asset-amount {
-            font-size: 10px;
-            color: var(--text-darker);
-            margin-top: 4px;
-        }
-
-        /* --- MAIN DASHBOARD --- */
-        .content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-top: -50px; /* Pulls it up slightly for visual balance */
-        }
-
-        .hex-icon {
-            width: 90px;
-            height: 100px;
-            background-color: var(--btc-yellow);
-            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 40px rgba(247, 147, 26, 0.2);
-        }
-
-        .hex-icon span {
-            font-size: 44px;
-            color: white;
-            font-weight: bold;
-            font-style: italic;
-        }
-
-        .main-balance {
-            font-size: 84px;
-            font-weight: 200;
-            color: white;
-        }
-
-        .main-balance span {
-            font-size: 32px;
-            color: var(--btc-yellow);
-            font-weight: 400;
-            margin-left: 10px;
-        }
-
-        .sub-balance {
-            font-size: 26px;
-            color: var(--text-muted);
-            font-weight: 200;
-            margin-top: 0px;
-        }
-
-        .actions {
-            display: flex;
-            gap: 20px;
-            margin-top: 50px;
-        }
-
-        .btn {
-            width: 260px;
-            padding: 14px 0;
-            border-radius: 100px;
-            border: 1px solid #2a2a2c;
-            background: transparent;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.2s;
+            border: var(--border-width) solid var(--black);
+            transition: var(--transition);
         }
 
         .btn:hover {
-            border-color: var(--btc-yellow);
-            background: rgba(247, 147, 26, 0.05);
+            background: var(--bg-main);
+            color: var(--black);
         }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--black);
+            margin-left: 10px;
+        }
+
+        /* --- FEATURES --- */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            border-bottom: var(--border-width) solid var(--black);
+            background: var(--bg-main);
+        }
+
+        .feature-box {
+            padding: 80px 40px;
+            border-right: var(--border-width) solid var(--black);
+            transition: var(--transition);
+        }
+
+        .feature-box:last-child { border-right: none; }
+        .feature-box:hover { background: var(--bg-accent); }
+
+        .feature-box i { font-size: 1.8rem; margin-bottom: 25px; }
+        .feature-box h3 { font-size: 1.6rem; text-transform: uppercase; margin-bottom: 15px; letter-spacing: -1px; }
 
         /* --- FOOTER --- */
         footer {
-            padding: 40px 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
+            padding: 100px 0;
+            text-align: center;
+            background: var(--bg-main);
         }
 
-        .price-box p {
-            font-size: 10px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            letter-spacing: 1.5px;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        .price-box h2 {
-            font-size: 40px;
-            margin: 0;
-            font-weight: 600;
-        }
-
-        .price-change {
-            color: #26da71;
-            font-weight: 500;
-            margin-top: 6px;
-        }
-
-        .timeframes {
-            display: flex;
-            gap: 20px;
-            color: var(--text-muted);
+        .copyright {
             font-weight: 700;
-            font-size: 12px;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            margin-bottom: 15px;
+            display: block;
+            color: #666;
         }
 
-        .active-tf {
-            color: white;
-            border-bottom: 2px solid white;
-            padding-bottom: 4px;
+        .designer-link {
+            color: var(--black);
+            text-decoration: none;
+            border-bottom: 2px solid var(--black);
+            padding-bottom: 2px;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        .designer-link:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .feature-box { border-right: none; border-bottom: var(--border-width) solid var(--black); }
+            .hero { padding: 100px 0; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo-container">
-            <div class="logo-box">E</div>
-            <span style="font-weight: 500;">$1,389,195.75</span>
-        </div>
-        <nav class="nav-links">
-            <a href="#">Portfolio</a>
-            <a href="#" class="active">Wallet</a>
-            <a href="#">Exchange</a>
-            <a href="#">Shares</a>
+    <div class="container">
+        <nav>
+            <div class="logo">Example</div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#">Status</a>
+                <a href="#">Purchase</a>
+            </div>
         </nav>
-        <div style="font-size: 18px; color: #4a4a4a;">⚙️</div>
-    </header>
-
-    <div class="asset-strip">
-        <div class="asset active">
-            <div class="asset-label">Bitcoin</div>
-            <div class="asset-amount">15 BTC</div>
-        </div>
-        <div class="asset">
-            <div class="asset-label">Ethereum</div>
-            <div class="asset-amount">0 ETH</div>
-        </div>
-        <div class="asset">
-            <div class="asset-label">Tether USD</div>
-            <div class="asset-amount">0 USDT</div>
-        </div>
-        <div class="asset">
-            <div class="asset-label">XRP</div>
-            <div class="asset-amount">0 XRP</div>
-        </div>
-        <div class="asset">
-            <div class="asset-label">Solana</div>
-            <div class="asset-amount">0 SOL</div>
-        </div>
     </div>
 
-    <div class="content">
-        <div class="hex-icon"><span>₿</span></div>
-        <div class="main-balance">15 <span>BTC</span></div>
-        <div class="sub-balance">$1,389,195.75</div>
-        
-        <div class="actions">
-            <button class="btn">Send</button>
-            <button class="btn">Receive</button>
+    <section class="hero">
+        <div class="container">
+            <h1>Built for<br>Utility.</h1>
+            <p>Example: A raw, industrial-grade execution environment. Zero distractions, maximum efficiency.</p>
+            <a href="#" class="btn">Get Access</a>
+            <a href="#" class="btn btn-outline">Documentation</a>
+        </div>
+    </section>
+
+    <div id="features" class="features">
+        <div class="feature-box">
+            <i class="fas fa-microchip"></i>
+            <h3>Kernel Layer</h3>
+            <p>Direct system interaction for unparalleled stability and bypass capabilities.</p>
+        </div>
+        <div class="feature-box">
+            <i class="fas fa-shield-halved"></i>
+            <h3>Pure Security</h3>
+            <p>No visual bloat. Just solid, functional protection that keeps you undetected.</p>
+        </div>
+        <div class="feature-box">
+            <i class="fas fa-terminal"></i>
+            <h3>Simple API</h3>
+            <p>Designed for developers who value performance over flashy interfaces.</p>
         </div>
     </div>
 
     <footer>
-        <div class="price-box">
-            <p>Price Chart</p>
-            <h2>$92,613.05</h2>
-            <div class="price-change">▲ +1.34% <span style="color: #4a4a4a; font-size: 13px; margin-left: 8px;">24H Change</span></div>
-        </div>
-        <div class="timeframes">
-            <span>1D</span>
-            <span>1W</span>
-            <span class="active-tf">1M</span>
-            <span>3M</span>
-            <span>6M</span>
-            <span>1Y</span>
+        <div class="container">
+            <span class="copyright">&copy; 2026 EXAMPLE CORE.</span>
+            <div style="font-size: 1.1rem; font-weight: 500;">
+                Designed by <a href="https://www.leonardo-design.com" target="_blank" class="designer-link">Leonardo Design</a>
+            </div>
         </div>
     </footer>
 
